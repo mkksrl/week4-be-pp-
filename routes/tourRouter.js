@@ -7,20 +7,21 @@ const {
   updateTour,
   deleteTour,
 } = require('../controllers/tourControllers');
+const checkAdminRole = require('../middleware/auth');
 
 // GET /tours
 router.get('/', getAllTours);
 
 // POST /tours
-router.post('/', createTour);
+router.post('/', checkAdminRole, createTour);
 
 // GET /tours/:tourId
 router.get('/:tourId', getTourById);
 
 // PUT /tours/:tourId
-router.put('/:tourId', updateTour);
+router.put('/:tourId', checkAdminRole, updateTour);
 
 // DELETE /tours/:tourId
-router.delete('/:tourId', deleteTour);
+router.delete('/:tourId', checkAdminRole, deleteTour);
 
 module.exports = router;
